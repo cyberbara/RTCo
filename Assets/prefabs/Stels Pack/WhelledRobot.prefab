@@ -719,7 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327338b9413331141953b7852b457f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlrAudio: {fileID: 0}
+  GMT: {fileID: 0}
   Deathwords: {fileID: 8300000, guid: 857d1bfebcf48644f84768f9585b44f3, type: 3}
   time: 3
   scense: Stels
@@ -838,7 +838,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

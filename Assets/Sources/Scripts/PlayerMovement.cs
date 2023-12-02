@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    public bool canMove = false;
+    [SerializeField]private bool canMove = false, canJump = true;
+    
     private float _controllerOriginalHeight;
     [SerializeField] private float _speed = 6f;
     [SerializeField] private float _runSpeed = 8f;
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -1f;
         }
 
-        if (Input.GetButton("Jump") && isGrounded)
+        if (Input.GetButton("Jump") && isGrounded && canJump == true)
         {
             Jump();
         }

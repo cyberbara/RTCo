@@ -8,10 +8,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private SpriteRenderer _crosshair;
     [SerializeField] private TMP_Text interactText;
     [SerializeField] private float _interactDistance;
+    [SerializeField] private GameManagment GMT;
     private Ray _ray;
     private RaycastHit _hit;
     private bool _hitSomething = false;
-    private int lenght = 0;
 
     private void Update()
     {
@@ -40,25 +40,34 @@ public class PlayerInteraction : MonoBehaviour
 
     private void InteractionRay()
     {
-        /*_hitSomething = false;
-        if (Physics.Raycast(_ray, out _hit, _interactDistance))
-        {
-            IInteractable interactable = _hit.collider.GetComponent<IInteractable>();
-            if (interactable != null)
-            {
-                _hitSomething = true;
-                interactText.text = interactable.GetDescription();
 
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    interactable.Interact();
-                }
-            }
-        }
-        _interactionPanel.SetActive(_hitSomething);*/
     }
     private void Interact()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            string tagger = _hit.collider.gameObject.tag;
+            if (Input.GetMouseButtonDown(0))
+            {
+                switch (tagger)
+                {
+                    case "Card":
+                        GMT.TakeCard();
+                        break;
+                    case "LockedDoor":
+                        GMT.UseCard();
+                        break;
+                    case "Keyboard":
+                        GMT.UseKeyboard();
+                        break;
+                    case "StealObj":
+                        GMT.Steal();
+                        break;
+                    case "GoAway":
+                        GMT.GoAway();
+                        break;
+                }
+            }
+        }
     }
 }
