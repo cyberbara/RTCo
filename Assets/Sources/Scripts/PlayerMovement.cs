@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    [SerializeField]private bool canMove = false, canJump = true;
+    [SerializeField]private bool canMove = false, canJump = true, Moving = false;
     
     private float _controllerOriginalHeight;
     [SerializeField] private float _speed = 6f;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator _cameraAnimator;
     private AudioSource audioSource;
     public AudioClip walkSound;
-
+    [SerializeField] private float Timer;
     Vector3 velocity;
     public bool isGrounded = false;
 
@@ -26,13 +26,17 @@ public class PlayerMovement : MonoBehaviour
         audioSource.clip = walkSound;
         _cameraAnimator.SetBool("IsWalk", false);
         _controllerOriginalHeight = controller.height;
+        StartCoroutine(MoveAfter());
     }
 
     void Update()
     {
 
         isGrounded = controller.isGrounded;
-        Move();
+        if (canMove == true)
+        {
+            Move();
+        }
 
         if (isGrounded && velocity.y < 0)
         {
@@ -72,11 +76,11 @@ public class PlayerMovement : MonoBehaviour
         if (move == Vector3.zero || isGrounded == false)
         {
             audioSource.Stop();
-            canMove = false;
+            Moving = false;
         } else if (!audioSource.isPlaying)
         {
             audioSource.Play();
-            canMove = true;
+            Moving = true;
         }
 
         if (move == Vector3.zero)
@@ -111,5 +115,10 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
         return true;
+    }
+    private IEnumerator MoveAfter()
+    {
+        yield return new WaitForSeconds(Timer);
+        canMove = true;
     }
 }

@@ -9,10 +9,11 @@ public class YellowZone : MonoBehaviour
     [SerializeField] private float time = 10f;
     [SerializeField] private string scense;
     private int count = 0;
+    [SerializeField] private CharacterController controller;
 
     private void OnTriggerStay(Collider other)
     {
-        if ((Input.GetKeyDown(KeyCode.LeftControl) == true) && count == 0)
+        if (controller.height > 0.8f && count == 0)
         {
             StartCoroutine(Respawn());
             GMT.Audios(Deathwords);

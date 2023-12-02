@@ -7,7 +7,7 @@ public class GameManagment : MonoBehaviour
     
     [SerializeField] private Animator Door;
     [SerializeField] private AudioSource PlrAudio;
-    [SerializeField] private AudioClip Tips, DoorSound, KeyboardSound, Stealing, Deathwords, GoAWAY;
+    [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound;
     [SerializeField] private GameObject Card, StealObj;
     [SerializeField] private string scense;
     private float timer;
@@ -17,6 +17,7 @@ public class GameManagment : MonoBehaviour
     {
         HadCard = true;
         Destroy(Card);
+        PlrAudio.PlayOneShot(TookSound);
     }
     public void UseCard()
     {
@@ -24,6 +25,7 @@ public class GameManagment : MonoBehaviour
         {
             Door.enabled = true;
             Audios(DoorSound);
+            PlrAudio.PlayOneShot(UseSound);
             HadCard = false;
         }
         else if (count == 0)
@@ -53,17 +55,21 @@ public class GameManagment : MonoBehaviour
     }
     public void Steal()
     {
-        if (IsStealed <= 0)
+        if (IsStealed == 0)
         {
             Audios(Stealing);
             Destroy(StealObj);
+            IsStealed++;
+            PlrAudio.PlayOneShot(TookSound);
         }     
     }
     public void UseKeyboard()
     {
-        if (IsOpened <= 0) 
-        { 
-            Audios(KeyboardSound);
+        if (IsOpened == 0) 
+        {
+            Audios(Keyboard);
+            IsOpened++;
+            PlrAudio.PlayOneShot(KeyboardSound);
         }   
     }
 
@@ -73,6 +79,14 @@ public class GameManagment : MonoBehaviour
         {
             Audios(GoAWAY);
             StartCoroutine(Go());
+        }
+        else if(IsStealed > 0 && count == 0)
+        {
+            Audios(IfSteal);
+        }
+        else
+        {
+            StartCoroutine(Counter());
         }
     }
 
