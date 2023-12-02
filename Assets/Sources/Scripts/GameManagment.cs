@@ -7,7 +7,7 @@ public class GameManagment : MonoBehaviour
     
     [SerializeField] private Animator Door;
     [SerializeField] private AudioSource PlrAudio;
-    [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound;
+    [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound, OpenDoorSound;
     [SerializeField] private GameObject Card, StealObj;
     [SerializeField] private string scense;
     private float timer;
@@ -23,10 +23,10 @@ public class GameManagment : MonoBehaviour
     {
         if (HadCard == true)
         {
-            Door.enabled = true;
             Audios(DoorSound);
             PlrAudio.PlayOneShot(UseSound);
             HadCard = false;
+            StartCoroutine(OpenDoor());
         }
         else if (count == 0)
         {
@@ -63,7 +63,7 @@ public class GameManagment : MonoBehaviour
             PlrAudio.PlayOneShot(TookSound);
         }     
     }
-    public void UseKeyboard()
+    public void UseKey()
     {
         if (IsOpened == 0) 
         {
@@ -105,5 +105,11 @@ public class GameManagment : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene(scense);
+    }
+    private IEnumerator OpenDoor()
+    {
+        yield return new WaitForSeconds(1);
+        PlrAudio.PlayOneShot(OpenDoorSound);
+        Door.enabled = true;
     }
 }

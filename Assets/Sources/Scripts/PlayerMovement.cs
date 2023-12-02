@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    [SerializeField]private bool canMove = false, canJump = true, Moving = false;
-    
+    [SerializeField]private bool canMove = false, canJump = true, SpeedUp = false;
+    private bool Moving = false;
     private float _controllerOriginalHeight;
     [SerializeField] private float _speed = 6f;
     [SerializeField] private float _runSpeed = 8f;
@@ -92,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
            _cameraAnimator.SetBool("IsWalk", true);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && SpeedUp == true)
         {
             controller.Move(_runSpeed * Time.deltaTime * move);
         }

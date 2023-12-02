@@ -58,7 +58,7 @@ public class PlayerInteraction : MonoBehaviour
                         GMT.UseCard();
                         break;
                     case "Keyboard":
-                        GMT.UseKeyboard();
+                        GMT.UseKey();
                         break;
                     case "StealObj":
                         GMT.Steal();
