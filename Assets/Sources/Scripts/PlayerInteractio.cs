@@ -48,8 +48,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             string tagger = _hit.collider.gameObject.tag;
             if (Input.GetMouseButtonDown(0))
-            {
-                switch (tagger)
+            {   
+                Debug.Log(tagger);
+                /*switch (tagger)
                 {
                     case "Card":
                         GMT.TakeCard();
@@ -72,7 +73,11 @@ public class PlayerInteraction : MonoBehaviour
                     case "unPassed":
                         GMT.UnPassedTest();
                         break;
+                    case "Wood":
+                        GMT.TakeWood(_hit.collider.gameObject);
+                        break;  
                 }
+                */
             }
         }
     }

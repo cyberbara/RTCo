@@ -11,6 +11,7 @@ TagManager:
   - GoAway
   - Passed
   - unPassed
+  - Plank
   layers:
   - Default
   - TransparentFX
