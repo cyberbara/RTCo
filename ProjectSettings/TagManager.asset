@@ -9,6 +9,8 @@ TagManager:
   - Keyboard
   - StealObj
   - GoAway
+  - Passed
+  - unPassed
   layers:
   - Default
   - TransparentFX

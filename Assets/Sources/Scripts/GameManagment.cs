@@ -3,16 +3,28 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class GameManagment : MonoBehaviour
-{
-    
-    [SerializeField] private Animator Door;
+{   
+    [SerializeField] private bool ____________All____________;
     [SerializeField] private AudioSource PlrAudio;
-    [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound, OpenDoorSound;
-    [SerializeField] private GameObject Card, StealObj;
     [SerializeField] private string scense;
     private float timer;
-    private int count = 0, IsStealed = 0, IsOpened = 0;
+
+    [SerializeField] private bool ____________Stels____________;
+    [SerializeField] private Animator Door;
+    [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound, OpenDoorSound;
+    [SerializeField] private GameObject Card, StealObj;
+    private int count = 0, IsStealed = 0, IsOpened = 0, count2 = 0;
     private bool HadCard = false;
+
+    [SerializeField] private bool ____________Parkour____________;
+    [SerializeField] private AudioClip Passed, unPassed;
+    [SerializeField] private GameObject Controller, FLCamera;
+    [SerializeField] private float FlyingCameraTimer;
+
+    private void Start()
+    {
+        StartCoroutine(FlyingCamera());
+    }
     public void TakeCard()
     {
         HadCard = true;
@@ -27,8 +39,9 @@ public class GameManagment : MonoBehaviour
             PlrAudio.PlayOneShot(UseSound);
             HadCard = false;
             StartCoroutine(OpenDoor());
+            count2++;
         }
-        else if (count == 0)
+        else if (count == 0 && count2 == 0)
         {
             Audios(Tips);
             count++;
@@ -91,6 +104,26 @@ public class GameManagment : MonoBehaviour
     }
 
 
+    public void PassedTest()
+    {
+        if (count == 0)
+        {
+            Audios(Passed);
+            StartCoroutine(Go());
+            count++;
+        }
+    }
+    public void UnPassedTest()
+    {
+        if (count == 0)
+        {
+            Audios(unPassed);
+            StartCoroutine(Counter());
+            StartCoroutine(Go());
+            count++;
+        }
+    }
+
     private IEnumerator Replay(AudioClip clipmaker)
     {
         yield return new WaitForSeconds(timer);
@@ -111,5 +144,11 @@ public class GameManagment : MonoBehaviour
         yield return new WaitForSeconds(1);
         PlrAudio.PlayOneShot(OpenDoorSound);
         Door.enabled = true;
+    }
+    private IEnumerator FlyingCamera()
+    {
+        yield return new WaitForSeconds(FlyingCameraTimer);
+        Controller.SetActive(true);
+        Destroy(FLCamera);
     }
 }

@@ -66,6 +66,12 @@ public class PlayerInteraction : MonoBehaviour
                     case "GoAway":
                         GMT.GoAway();
                         break;
+                    case "Passed":
+                        GMT.PassedTest();
+                        break;
+                    case "unPassed":
+                        GMT.UnPassedTest();
+                        break;
                 }
             }
         }
