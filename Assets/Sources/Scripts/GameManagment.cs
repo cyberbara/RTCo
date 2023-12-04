@@ -14,7 +14,7 @@ public class GameManagment : MonoBehaviour
     [SerializeField] private TMP_Text NameOfTest;
     [SerializeField] private GameObject PassedTesting;
     [SerializeField] private Slider Slimer;
-    private float Volume;
+    private float Volume = 1f;
 
     [Header("____________Stels____________")]
     [SerializeField] private Animator Door;
@@ -27,7 +27,6 @@ public class GameManagment : MonoBehaviour
     [SerializeField] private float FlyingCameraTimer;
     [SerializeField] private AudioClip Passed, unPassed;
     [SerializeField] private GameObject Controller, FLCamera;
-    private bool bruh;
     
 
     [Header("____________FinalWar____________")]
