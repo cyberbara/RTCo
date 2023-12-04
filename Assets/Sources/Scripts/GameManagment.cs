@@ -2,48 +2,123 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManagment : MonoBehaviour
 {   
-    [SerializeField] private bool ____________All____________;
+    [Header("____________ALL____________")]
     [SerializeField] private AudioSource PlrAudio;
     [SerializeField] private string scense;
     private float timer;
+    [SerializeField] private bool FLcamera = true;
     [SerializeField] private TMP_Text NameOfTest;
     [SerializeField] private GameObject PassedTesting;
+    [SerializeField] private Slider Slimer;
+    private float Volume;
 
-    [SerializeField] private bool ____________Stels____________;
+    [Header("____________Stels____________")]
     [SerializeField] private Animator Door;
     [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound, OpenDoorSound;
     [SerializeField] private GameObject Card, StealObj;
     private int count = 0, IsStealed = 0, IsOpened = 0, count2 = 0;
     private bool HadCard = false;
 
-    [SerializeField] private bool ____________Parkour____________;
+    [Header("____________Parkour____________")]
+    [SerializeField] private float FlyingCameraTimer;
     [SerializeField] private AudioClip Passed, unPassed;
     [SerializeField] private GameObject Controller, FLCamera;
-    [SerializeField] private float FlyingCameraTimer;
-
-    [SerializeField] private bool ____________FinalWar____________;
-    private bool HadWood = false;
-    [SerializeField] private AudioClip UHaveWood, Clip1, Clip3, Clip5;
-    [SerializeField] private GameObject Wood, Part1, Part2, Part3, Part4, Part5, Part6;
-    private int WoodCounter = 0;
+    private bool bruh;
     
 
+    [Header("____________FinalWar____________")]
+    private bool HadWood = false;
+    [SerializeField] private bool FinalWar = false;
+    [SerializeField] private AudioClip UHaveWood, Clip1, Clip3, Clip5, Clip6, LightSound, FinalStart;
+    [SerializeField] private GameObject Wood, Part1, Part2, Part3, Part4, Part5, Part6, FirstLight, SecondLight, ThirdLight, FirstScene, SecondScene;
+    private int WoodCounter = 0;
+    [SerializeField] private float Timer;
+    [SerializeField] private Animator Glow;
 
-    public void TakeWood(GameObject Tooked)
+    public void SliderChg()
     {
-        if (HadWood == true)
+        Volume = Slimer.value;
+    }
+
+
+
+
+    private void Start()
+    {
+        if (FLcamera)
         {
-            Audios(UHaveWood);
+            StartCoroutine(FlyingCamera());
         }
-        else
+        if (FinalWar)
+        {
+            StartCoroutine(FinalWar1());
+        }
+    }
+    
+    public void Glowing()
+    {
+        Glow.enabled = true;
+    }
+
+    public void Raft()
+    {
+        Controller.SetActive(false);
+        FirstScene.SetActive(false);
+        SecondScene.SetActive(true);
+        StartCoroutine(finality());
+    }
+    private IEnumerator finality()
+    {
+        yield return new WaitForSeconds(17);
+        SceneManager.LoadScene(scense);
+    }
+    private IEnumerator FinalWar1()
+    {
+        yield return new WaitForSeconds(1);
+        PlrAudio.PlayOneShot(LightSound);
+        PlrAudio.PlayOneShot(FinalStart);
+        FirstLight.SetActive(true);
+        StartCoroutine(FinalWar2());
+    }
+    private IEnumerator FinalWar2()
+    {
+        yield return new WaitForSeconds(4);
+        PlrAudio.PlayOneShot(LightSound);
+        SecondLight.SetActive(true);
+        StartCoroutine(FinalWar3());
+    }
+    private IEnumerator FinalWar3()
+    {
+        yield return new WaitForSeconds(4.5f);
+        PlrAudio.PlayOneShot(LightSound);
+        ThirdLight.SetActive(true);
+        StartCoroutine(FinalWar4());
+    }
+    private IEnumerator FinalWar4()
+    {
+        yield return new WaitForSeconds(4);
+        PlrAudio.PlayOneShot(LightSound);
+        SecondLight.SetActive(false);
+        ThirdLight.SetActive(false);
+    }
+
+
+    public void TakeWood(GameObject Plank)
+    {
+        if (HadWood == false)
         {
             PlrAudio.PlayOneShot(TookSound);
             Wood.SetActive(true);
-            Tooked.SetActive(false);
             HadWood = true;
+            Plank.SetActive(false);
+        }
+        else
+        {
+            Audios(UHaveWood);
         }
     }
 
@@ -53,48 +128,42 @@ public class GameManagment : MonoBehaviour
         {
             Wood.SetActive(false);
             PlrAudio.PlayOneShot(UseSound);
+            HadWood = false;
+            
             switch (WoodCounter)
             {
                 case 0:
                     Part1.SetActive(true);
+                    WoodCounter++;
                     Audios(Clip1);
                     break;
                 case 1:
                     Part2.SetActive(true);
+                    WoodCounter++;
                     break;
                 case 2:
                     Part3.SetActive(true);
-                    Audios(Clip3);
+                    WoodCounter++;
+                    PlrAudio.PlayOneShot(Clip3);
                     break;
                 case 3:
                     Part4.SetActive(true);
+                    WoodCounter++;
                     break;
                 case 4:
                     Part5.SetActive(true);
-                    Audios(Clip5);
+                    WoodCounter++;
+                    PlrAudio.PlayOneShot(Clip5);
                     break;
                 case 5:
                     Part6.SetActive(true);
-                    Part5.SetActive(false);
-                    Part4.SetActive(false);
-                    Part3.SetActive(false);
-                    Part1.SetActive(false);
-                    Part2.SetActive(false);
-
+                    WoodCounter++;
+                    PlrAudio.PlayOneShot(Clip6);
                     break;
-            }
-            HadWood = false;
-            Wood.SetActive(false);
-            WoodCounter++;
+            } 
         }
     }
 
-
-
-    private void Start()
-    {
-        StartCoroutine(FlyingCamera());
-    }
     public void TakeCard()
     {
         HadCard = true;
@@ -125,7 +194,7 @@ public class GameManagment : MonoBehaviour
     public void Audios(AudioClip Words)
     {
         timer = 0.5f + Words.length - PlrAudio.time;
-
+        PlrAudio.volume = Volume;
 
         if (PlrAudio.isPlaying == false)
         {
@@ -227,4 +296,6 @@ public class GameManagment : MonoBehaviour
         NameOfTest.enabled = false;
         Controller.SetActive(true);
     }   
+
+
 }

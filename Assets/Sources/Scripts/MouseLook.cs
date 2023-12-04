@@ -6,7 +6,7 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform playerBody;
     float xRotation = 0f;
-    // [SerializeField] private Slider _slider;
+    [SerializeField] private Slider _slider;
 
     private const string saveKey = "mouseSensitivity";
 
@@ -29,7 +29,7 @@ public class MouseLook : MonoBehaviour
     }
     public void SetSliderValue()
     {
-        //_slider.value = mouseSensitivity;
+        mouseSensitivity = _slider.value;
     }
 
 }

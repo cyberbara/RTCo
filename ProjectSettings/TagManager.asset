@@ -12,6 +12,7 @@ TagManager:
   - Passed
   - unPassed
   - Plank
+  - Wood
   layers:
   - Default
   - TransparentFX

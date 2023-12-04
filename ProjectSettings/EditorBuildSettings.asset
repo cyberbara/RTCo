@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stels.unity
     guid: 88b7d005be53d644dba53bc0bc226ccd
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 4a2237e8b16aa5f4882f167d9881d4bb
+  - enabled: 1
+    path: Assets/Scenes/FinalWar.unity
+    guid: d768799aae5e2b548a0c4eaaa0ae9e30
+  - enabled: 1
+    path: Assets/Scenes/Introduction.unity
+    guid: ab3589663e0ec1146a7d2677621e06fc
   m_configObjects: {}
