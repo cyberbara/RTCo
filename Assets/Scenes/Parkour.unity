@@ -57126,6 +57126,8 @@ MonoBehaviour:
   SecondScene: {fileID: 0}
   Timer: 0
   Glow: {fileID: 0}
+  PhisButton: {fileID: 0}
+  tips: {fileID: 0}
 --- !u!4 &1377633975
 Transform:
   m_ObjectHideFlags: 0

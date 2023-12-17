@@ -16,31 +16,44 @@ public class GameManagment : MonoBehaviour
     [SerializeField] private Slider Slimer;
     private float Volume = 1f;
 
-    [Header("____________Stels____________")]
+    [Header("____________Other____________") ]
     [SerializeField] private Animator Door;
     [SerializeField] private AudioClip Tips, DoorSound, Keyboard, Stealing, IfSteal, Deathwords, GoAWAY, TookSound, KeyboardSound, UseSound, OpenDoorSound;
     [SerializeField] private GameObject Card, StealObj;
     private int count = 0, IsStealed = 0, IsOpened = 0, count2 = 0;
     private bool HadCard = false;
 
-    [Header("____________Parkour____________")]
+    
     [SerializeField] private float FlyingCameraTimer;
     [SerializeField] private AudioClip Passed, unPassed;
     [SerializeField] private GameObject Controller, FLCamera;
-    
-
-    [Header("____________FinalWar____________")]
-    private bool HadWood = false;
     [SerializeField] private bool FinalWar = false;
+
+    
+    private bool HadWood = false;
+    
     [SerializeField] private AudioClip UHaveWood, Clip1, Clip3, Clip5, Clip6, LightSound, FinalStart;
     [SerializeField] private GameObject Wood, Part1, Part2, Part3, Part4, Part5, Part6, FirstLight, SecondLight, ThirdLight, FirstScene, SecondScene;
     private int WoodCounter = 0;
     [SerializeField] private float Timer;
     [SerializeField] private Animator Glow;
+    [SerializeField] private GameObject PhisButton, tips; 
 
     public void SliderChg()
     {
         Volume = Slimer.value;
+    }
+
+    public void Bebra()
+    {
+        SceneManager.LoadScene(scense);
+    }
+
+    private IEnumerator Sec120()
+    {
+        yield return new WaitForSeconds(70f);
+        PhisButton.tag = "Button";
+        tips.SetActive(true);
     }
 
 
@@ -56,6 +69,7 @@ public class GameManagment : MonoBehaviour
         {
             StartCoroutine(FinalWar1());
         }
+        StartCoroutine(Sec120());
     }
     
     public void Glowing()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    private bool IsOpened;
+    [SerializeField]private bool IsOpened = true;
     [SerializeField] private GameObject FlashLight;
     void Update()
     {

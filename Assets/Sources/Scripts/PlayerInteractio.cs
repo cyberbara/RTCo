@@ -79,7 +79,13 @@ public class PlayerInteraction : MonoBehaviour
                         break;
                     case "Wood":
                         GMT.TakeWood(_hit.collider.gameObject);
-                        break;  
+                        break;
+                    case "Button":
+                        GMT.Glowing();
+                        break;
+                    case "Next":
+                        GMT.Bebra();
+                        break;
                     
                 }
             }

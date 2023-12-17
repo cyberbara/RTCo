@@ -13,6 +13,8 @@ TagManager:
   - unPassed
   - Plank
   - Wood
+  - Button
+  - Next
   layers:
   - Default
   - TransparentFX

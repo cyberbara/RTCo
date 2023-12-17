@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.C))
         {
             controller.height = 0.7f;
             _speed = 3f;
